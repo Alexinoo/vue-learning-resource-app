@@ -1,6 +1,6 @@
 <template>
 
-    <base-dialog v-if="inputIsInvalid" title="Invalid Input">
+    <base-dialog v-if="inputIsInvalid" title="Invalid Input" @close="confirmError">
 
         <template #default>
             <p>unfortunately , at least one input is invalid.</p>
@@ -10,7 +10,7 @@
         <template #actions>
             <base-button @click="confirmError">Okay</base-button>
         </template>
-        
+
     </base-dialog>
 
     <base-card>
