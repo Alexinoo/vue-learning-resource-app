@@ -54,7 +54,8 @@ export default {
     provide(){
         return {
             resources : this.storedResources,
-            addResource: this.addResource
+            addResource: this.addResource,
+            deleteResource: this.removeResource,
         }
     },
 
@@ -84,6 +85,24 @@ export default {
             this.storedResources.unshift(newResource)
 
             this.selectedTab = 'stored-resources'
+        } ,
+
+        removeResource(resourceID){
+
+            // OPTION 1 - THIS WONT WORK BECAUSE filter returns a new Array ; And will try to overwrite the one existing in the memory and the new array will not update the resources injected in the other components
+
+            // this.storedResources = this.storedResources.filter(resource => resource.id !== resourceID)
+            // console.log(this.storedResources.length);
+
+
+            // OPTION 2 - FINDBYINDEX  - Manipulates the array in memory and removes the array at specified index            
+            
+            // FIND INDEX OF THE RESOURCE THAT MATCHES WITH THE resourceID
+            const resourceIndex = this.storedResources.findIndex(resource => resource.id === resourceID)
+
+            // THEN USE SPLICE TO REMOVE IT -SPLICE WORKS BY REMOVING THE ITEM AT SPECIFIED INDEX AND THE SECOND PARAMETER SPECIFIES HOW MANY ITEM NEEDS TO BE REMOVED
+            // WORKS JUST LIKE PUSHING/UNSHIFTING - MODIFIES THE EXISTING ARRAY
+            this.storedResources.splice(resourceIndex , 1 )
         }
     }
 }
